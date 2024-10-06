@@ -41,6 +41,8 @@ from . import hnode_misc, wtxtp_tree, wtxtp_info, wtxtp_namer, wtxtp_printer
 
 #******************************************************************************
 
+txtp_SFX_list = set()
+
 class Txtp(object):
 
     def __init__(self, txtpcache):
@@ -60,6 +62,7 @@ class Txtp(object):
         # for info
         self._node = None
         self._namer = wtxtp_namer.TxtpNamer(self)
+        
         return
 
     # start of txtp generation
@@ -196,6 +199,10 @@ class Txtp(object):
 
         outname = self._namer.get_outname(name, outdir)
         info = self._get_info(name, longname, printer)
+
+        if not printer.lang_name:
+            node_name = self._namer.get_node_name(name)
+            txtp_SFX_list.add(node_name)
 
         with open(outname, 'w', encoding='utf-8') as outfile:
             outfile.write(text)

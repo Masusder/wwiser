@@ -76,6 +76,11 @@ class TxtpNamer(object):
 
         return name
 
+    def get_node_name(self, filename):
+        node_name = filename.split(" ")[0]
+        node_name = node_name.split(".")[0]
+        return node_name
+
     def get_outname(self, name, outdir):
         txtp = self.txtp
 

@@ -3,6 +3,7 @@ from . import wfilter, wmover, wtxtp_cache, wreport
 from .render import wbuilder, wrenderer, wstate, wglobalsettings
 from ..parser import wdefs
 from . import wlang
+from .txtp import wtxtp
 
 
 
@@ -345,7 +346,9 @@ class Generator(object):
             hashname = nsid.get_attr('hashname')
             if hashname and not self._bank_order:
                 item = (hashname, node)
-                nodes_named.append(item)
+                
+                if hashname not in wtxtp.txtp_SFX_list:
+                    nodes_named.append(item)
             else:
                 item = (nsid.value(), node)
                 nodes_unnamed.append(item)
